@@ -1,0 +1,105 @@
+
+    {% extends 'base.html' %}
+    {% block body %}
+        {% load static %}
+        <style>
+            .flexy{
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+        .form1{
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            position: absolute;
+            
+        }
+        form{
+            padding:30px;
+        }
+        .close {
+            position: absolute;
+            top: 3px;
+            right: 8px;
+            font-size: 25px;
+            color: rgb(255, 255, 255);
+            transform: rotate(45deg);
+            cursor: pointer;
+            text-decoration: none;
+            
+        }
+        button{
+            background-color:rgb(103, 175, 220) ;
+            color:white;
+            padding:10px 20px;
+        }
+    </style>
+
+       <div class="row container-fluid  p-0 my-5">
+        <div class="col-sm-3 m-0 p-0"></div>
+        <div class="col-sm-6 m-0 p-0" style=" background-color:rgba(0,0,0,0.2);">
+            <a href="javascript:history.go(-1);" class="close">+</a>
+        <h6 style="" class="bg-info text-light p-2">Employee Category Alteration(Secondary)</h6>
+        
+                <form action="" method="post">
+                  
+                <div class="    ">
+                    <div class="row container-fluid  p-2 m-0">
+                        <div class="col-sm-6 m-0 p-0"> <label for="a">Name</label></div>
+                        <div class="col-sm-6 m-0 p-0"><input type="text" class="form-control" id="a" placeholder=""></div>
+                        
+                    </div>
+                    <div class="row container-fluid  p-2 m-0">
+                        <div class="col-sm-6 m-0 p-0"> <label for="b">Alias</label></div>
+                        <div class="col-sm-6 m-0 p-0"> 
+                        <input type="text" class="form-control" id="b" placeholder=""></div>
+                        
+                    </div>
+                    <!-- <div class="row container-fluid  p-2 m-0">
+                        <div class="col-sm-6 m-0 p-0"> <label for="b">Under</label></div>
+                        <div class="col-sm-6 m-0 p-0"> 
+                            <select name="usedate" id="g" class="form-control">
+                                <option value="primary">Primary</option> 
+                                <option value=""></option>
+                            </select>
+                        </div>
+                        
+                    </div> -->
+                    <div class="row container-fluid  p-2 m-0">
+                        <div class="col-sm-6 m-0 p-0"> <label for="h">Allocate Revenue Items</label></div>
+                        <div class="col-sm-6 m-0 p-0">
+                            <select name="usedate" id="h" class="form-control">
+                            <option value="no">No</option> 
+                            <option value="yes">Yes</option>
+                        </select>
+                        </div>
+                        
+                    </div>
+                </div>
+                <div class="row container-fluid  p-2 m-0">
+                    <div class="col-sm-6 m-0 p-0"> <label for="h">Allocate Non Revenue Items</label></div>
+                    <div class="col-sm-6 m-0 p-0">
+                        <select name="usedate" id="h" class="form-control">
+                        <option value="no">No</option> 
+                        <option value="yes">Yes</option>
+                    </select>
+                    </div>
+                    
+                </div>
+            </div>
+                <!-- <div class="flexy w-100 py-4"><button class="btn btn-info w-25">Create</button></div>  -->
+
+                </form>
+              
+
+         
+        </div>
+        </div>
+        <div class="col-sm-3  m-0 p-0"></div>
+
+       </div> 
+     
+    
+{% endblock %}
