@@ -54,11 +54,10 @@ def currency(request):
 
 def currency_alter(request,pk):
     cur=CreateCurrency.objects.get(id=pk)
-<<<<<<< HEAD
-    return render(request,'currency_alter.html',{'cur':cur})
-=======
+
     return render(request,'currency_alter.html',{'i':cur})
->>>>>>> f646ea2d4497982007075cb97ecfb2d181010aeb
+    return render(request,'currency_alter.html',{'i':cur})
+
 
 
 def stock_grp(request):
@@ -210,73 +209,68 @@ def save_currency_data(request):
         context = {'grp':grp ,'obj':obj1}
         return redirect('load_rates_of_exchange',context)
 
-        **************************************************************************************
+       ************************************************************************
 
-
-def create_ledger(request):
+       def create_ledger(request):
     if request.method == 'POST':
-
         # Ledger Basic
-        Lname = request.POST['Lname']
-        Lalias = request.POST['Lalias']
-        Lunder = request.POST['Lund']
-        try:
-            mdl = GroupModel.objects.get(name=Lunder)
-
-            fl = mdl
-            print('IN name')
-        except:
-
-            try:
-                mdl = GroupModel.objects.get(alias=Lunder)
-                print('in ALIAS')
-                fl = mdl
-            except:
-                print("NOT found")
-
-        Lopening_bal = request.POST['Lopening']
-        typ_of_ledg = request.POST['typ_of_ledg']
-        typ_of_duty = request.POST['typ_of_duty']
-        percet_of_calc = request.POST['percet_of_calc']
-        main_balance_bill_ = request.POST['main_balance_bill_']  # bool
-        chk_credit_days = request.POST['chk_credit_days']  # bool
-        def_cr_period = request.POST['def_cr_period']
-        # Provide Banking Details
-        provide_banking = request.POST['provide_banking']  # bool
+        Lname = request.POST.get('ledger_name', False)
+        Lalias = request.POST.get('ledger_alias', False)
+        Lunder = request.POST.get('group_under', False)
+        Lopening_bal = request.POST.get('ledger_opening_bal', False)
+        typ_of_ledg = request.POST.get('ledger_type', False)
+        provide_banking = request.POST.get('provide_banking_details', False)
 
         # Banking_details
-        B_od_limit = request.POST['B_od_limit']
-        B_ac_holder_name = request.POST['B_ac_name']
-        B_ac_no = request.POST['B_ac_no']
-        B_ifsc = request.POST['B_ac_ifsc']
-        B_swift_code = request.POST['B_ac_swift']
-        B_name = request.POST['B_name']
-        B_branch = request.POST['B_branch']
-        '''bank Configuration'''
-        B_alter_chq_bks = request.POST['B_alter_chq_bks']  # bool
-        B_name_enbl_chq_prtg = request.POST['B_name_enbl_chq_prtg']  # bool
-
+        B_od_limit = request.POST.get('od_limit', False)
+        B_ac_holder_name =request.POST.get('holder_name', False)
+        B_ac_no = request.POST.get('ac_number', False)
+        B_ifsc = request.POST.get('ifsc', False)
+        B_swift_code =request.POST.get('swift_code', False)
+        B_name = request.POST.get('bank_name', False)
+        B_branch = request.POST.get('branch_name', False)
+        B_alter_chq_bks =request.POST.get('alter_chk_bks', False)
+        B_name_enbl_chq_prtg = request.POST.get('enbl_chk_printing', False) 
+        B_chqconfg= request.POST.get('chqconfg', False) 
         # Mailing_details
-        Mname = request.POST['Mname']
-        Maddress = request.POST['Maddress']
-        Mstate = request.POST['Mstate']
-        Mcountry = request.POST['Mcountry']
-        Mpincode = request.POST['Mpincode']
+        Mname = request.POST.get('name', False)
+        Maddress = request.POST.get('address', False)
+        Mstate =request.POST.get('state', False)
+        Mcountry = request.POST.get('country', False)
+        Mpincode = request.POST.get('pincode', False)
 
         # Tax_Registration_Details
-        Tgst_uin = request.POST['Tgst_uin']
-        Treg_typ = request.POST['Treg_typ']
-        Tpan_no = request.POST['Tpan_no']
-        T_alter_gst = request.POST['T_alter_gst']
+        Tgst_uin = request.POST.get('gst_uin', False)
+        Treg_typ = request.POST.get('register_type', False)
+        Tpan_no = request.POST.get('pan_no', False)
+        T_alter_gst =request.POST.get('alter_gst_details', False)
 
         # Satutory Details
-        assemble_calc = request.POST['assemble_value']
-        is_gst_applicable = request.POST['is_gst_applicable']
-        typ_of_supply = request.POST['typ_of_supply']
+        assessable_calculationn = request.POST.get('assessable_calculation', False)
+        Appropriate_too =request.POST.get('Appropriate_to', False)
+        gst_applicablee= request.POST['is_gst_applicable']
+        Set_alter_GSTT=request.POST.get('Set_alter_GST', False)
+        type_of_supplyy = request.POST['type_of_supply']
+        Method_of_calcc=request.POST.get('Method_of_calc', False)
 
-        # -------------------------#
-        sec = CompanyModel.objects.get(id=request.session["scid"])
-        Lmdl = LedgerModel(
+        #leadger Rounding
+        ledger_idd=request.POST.get('useadvc', False)
+        Rounding_Methodd=request.POST.get('Rounding_Method', False)
+        Round_limitt =request.POST.get('Round_limit', False)
+
+        #ledger_tax 
+        type_of_duty_or_taxx=request.POST.get('type_of_duty_or_tax', False)
+        type_of_taxx=request.POST.get('type_of_tax', False)
+        valuation_typee=request.POST.get('valuation_type', False)
+        rate_per_unitt=request.POST.get('rate_per_unit', False)
+        Persentage_of_calculationn=request.POST.get('Persentage_of_calculation', False)
+
+        #sundry
+        maintain_balance_bill_by_billl=request.POST.get('maintain_balance_bill_by_bill', False)
+        Default_credit_periodd=request.POST.get('Default_credit_period', False)
+        Check_for_credit_days=request.POST.get('Check_for_credit_days', False)
+
+        Lmdl = Ledger(
             cid=sec,
             ledger_name=Lname,
             ledger_alias=Lalias,
@@ -292,7 +286,7 @@ def create_ledger(request):
         )
         Lmdl.save()
         idd = Lmdl
-        Bmdl = BankingDetails(
+        Bmdl = Banking_Details(
             cid=sec,
             ledger_id=idd,
             od_limit=B_od_limit,
@@ -306,7 +300,7 @@ def create_ledger(request):
             enbl_chk_printing=B_name_enbl_chq_prtg,
         )
         Bmdl.save()
-        M_mdl = MailingAddressModel(
+        M_mdl = Mailing_Address(
             cid=sec,
             ledger_id=idd,
             name=Mname,
@@ -316,7 +310,7 @@ def create_ledger(request):
             pincode=Mpincode,
         )
         M_mdl.save()
-        T_mdl = TaxRegisterModel(
+        T_mdl = Tax_Register(
             cid=sec,
             ledger_id=idd,
             gst_uin=Tgst_uin,
@@ -326,7 +320,7 @@ def create_ledger(request):
 
         )
         T_mdl.save()
-        LS_mdl = LedgerSatutoryModel(
+        LS_mdl = Ledger_Satutory(
             cid=sec,
             ledger_id=idd,
             assessable_calculation=assemble_calc,
@@ -345,70 +339,3 @@ def create_ledger(request):
         
     }
     return render(request, 'create_ledger.html', context)
-
-    ***********************************************************************
-
-def save_employee(request):
-
-    if request.method == 'POST':
-
-        namee = request.POST['name']
-        aliass = request.POST['alias']
-        underr = request.POST['underr']
-        join = request.POST['join']
-        sal = request.POST['sal']
-        empname = request.POST['empname']
-        desig = request.POST['desig']
-        fn = request.POST['fn']
-        loc = request.POST['loc']
-        gen = request.POST['gen']
-        dob = request.POST['dob']
-        bloodd = request.POST['blood']
-        prnts = request.POST['prnts']
-        spouse = request.POST['spouse']
-        adrs = request.POST['adrs']
-        phone = request.POST['phone']
-        email = request.POST['email']
-        taxno = request.POST['taxno']
-        aadhar = request.POST['aadhar']
-        uan = request.POST['uan']
-        pfn = request.POST['pfn']
-        pran = request.POST['pran']
-        esin = request.POST['esin']
-        bank = request.POST['bank']
-        
-        mdl_obj = Employee(
-
-            name =namee,
-            alias=aliass,
-            under=underr,
-            date_join=join,
-            defn_sal =sal,
-            emp_name = empname,
-            emp_desg=desig ,
-            fnctn = fn,
-            location =loc,
-            gender =gen,
-            dob =dob,
-            blood=bloodd,
-            parent_name =prnts,
-            spouse_name = spouse,
-            address = adrs,
-            number = phone,
-            emailid = email,
-            inc_tax_no = taxno,
-            aadhar_no = aadhar,
-            uan = uan,
-            pfn = pfn,
-            pran = pran,
-            esin = esin,
-            bankdtls = bank,
-
-
-        )
-
-        mdl_obj.save()
-        return render(request,'load_create_employee.html')
-
-
-
