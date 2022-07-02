@@ -209,9 +209,9 @@ def save_currency_data(request):
         context = {'grp':grp ,'obj':obj1}
         return redirect('load_rates_of_exchange',context)
 
-       ************************************************************************
+    #    ************************************************************************
 
-       def create_ledger(request):
+def create_ledger(request):
     if request.method == 'POST':
         # Ledger Basic
         Lname = request.POST.get('ledger_name', False)
@@ -339,3 +339,70 @@ def save_currency_data(request):
         
     }
     return render(request, 'create_ledger.html', context)
+
+    # **************************************************************************************
+def save_employee(request):
+
+    if request.method == 'POST':
+
+        namee = request.POST['name']
+        aliass = request.POST['alias']
+        underr = request.POST['underr']
+        join = request.POST['join']
+        sal = request.POST['sal']
+        empname = request.POST['empname']
+        desig = request.POST['desig']
+        fn = request.POST['fn']
+        loc = request.POST['loc']
+        gen = request.POST['gen']
+        dob = request.POST['dob']
+        bloodd = request.POST['blood']
+        prnts = request.POST['prnts']
+        spouse = request.POST['spouse']
+        adrs = request.POST['adrs']
+        phone = request.POST['phone']
+        email = request.POST['email']
+        taxno = request.POST['taxno']
+        aadhar = request.POST['aadhar']
+        uan = request.POST['uan']
+        pfn = request.POST['pfn']
+        pran = request.POST['pran']
+        esin = request.POST['esin']
+        bank = request.POST['bank']
+        
+        mdl_obj = Employee(
+
+            name =namee,
+            alias=aliass,
+            under=underr,
+            date_join=join,
+            defn_sal =sal,
+            emp_name = empname,
+            emp_desg=desig ,
+            fnctn = fn,
+            location =loc,
+            gender =gen,
+            dob =dob,
+            blood=bloodd,
+            parent_name =prnts,
+            spouse_name = spouse,
+            address = adrs,
+            number = phone,
+            emailid = email,
+            inc_tax_no = taxno,
+            aadhar_no = aadhar,
+            uan = uan,
+            pfn = pfn,
+            pran = pran,
+            esin = esin,
+            bankdtls = bank,
+
+
+        )
+
+        mdl_obj.save()
+        return render(request,'load_create_employee.html')
+
+
+
+    
