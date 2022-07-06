@@ -100,12 +100,12 @@ class VoucherModel(models.Model):
     alter_decalaration = models.BooleanField()
 
 
-# class CurrencyAlter(models.Model):
-#     cname= models.ForeignKey( CreateCurrency,on_delete=models.CASCADE,default=1)
-#     slno = models.CharField(max_length=225)
-#     currencys = models.CharField(max_length=225)
-#     stdrate =models.CharField(max_length=225)
-#     lastvrate =models.CharField(max_length=225)
-#     specirate =models.CharField(max_length=225)
-#     lastvrate2 =models.CharField(max_length=225)
-#     specirate2 =models.CharField(max_length=225)
+class CurrencyAlter(models.Model):
+    cname= models.ForeignKey( CreateCurrency,on_delete=models.CASCADE,default=1)
+    slno = models.CharField(max_length=225)
+    currencys = models.CharField(max_length=225)
+    stdrate =models.CharField(max_length=225)
+    lastvrate =models.CharField(max_length=225)
+    specirate =models.CharField(max_length=225)
+    lastvrate2 =models.CharField(max_length=225)
+    specirate2 =models.CharField(max_length=225)

@@ -44,16 +44,17 @@
         <div class="row container-fluid">
             <div class="col-sm-2"></div>
             <div class="col-sm-8">
-                <form action="" method="post">
+                <form action="/update_currency/{{ i.id }}" method="post">
+                    {% csrf_token %}
         
                     <label for="a">Symbol</label>
-                    <input type="text" class="form-control" id="a" placeholder="" value="{{ i.symbol }}">
+                    <input type="text" class="form-control" id="a" placeholder="" value="{{ i.symbol }}" name="symbol">
                     <label for="b">Formal Name</label>
-                    <input type="text" class="form-control" id="b" placeholder="" value="{{ i.formal_name }}">
+                    <input type="text" class="form-control" id="b" placeholder="" value="{{ i.formal_name }}" name="fname">
                     <label for="c">ISO Currency Code</label>
-                    <input type="text" class="form-control" id="c" placeholder="" value="{{ i.ISO_code }}">
+                    <input type="text" class="form-control" id="c" placeholder="" value="{{ i.ISO_code }}" name="iso_code">
                     <label for="d">Number of Decimal places</label>
-                    <input type="text" class="form-control" id="d" placeholder="" value="{{ i.decimal_places}}">
+                    <input type="text" class="form-control" id="d" placeholder="" value="{{ i.decimal_places}}" name="n_deci_placs">
                     <label for="e">Show amount in millions</label>
                     {% if i.show_in_millions == 'No' %}
                     <select name="smt_millon" id="e" class="form-control">
