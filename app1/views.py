@@ -1,4 +1,5 @@
 from django.shortcuts import render
+from django.contrib import messages
 from multiprocessing import context
 from unicodedata import name
 from django.http import JsonResponse
@@ -221,3 +222,56 @@ def update_currency(request,pk):
         cur.save()
         return redirect('currency')
     return render(request, 'currency_alter.html',)
+
+
+def load_create_vouchertyp(request):
+    return render(request,'load_create_vouchertyp.html')
+
+
+
+def create_voucher(request):
+    if request.method == 'POST':
+        Vname = request.POST['nam']
+        alias = request.POST['alias']
+        vtype = request.POST['vtype']
+        abbre = request.POST['abbre']
+        activ_vou_typ = request.POST['avtyp']  # bool
+        meth_vou_num = request.POST['meth_vou_num']
+        useadv = request.POST.get('useadvc', False)
+        prvtdp = request.POST.get('prvtdp', False)
+        use_effct_date = request.POST['uefftdate']  # bool
+        allow_zero_trans = request.POST['allow_zero_trans']  # bool
+        allow_naration_in_vou = request.POST['allow_naration_in_vou']  # bool
+        optional = request.POST['optional'] 
+        provide_narr = request.POST['providenr']  # bool
+        print = request.POST['print']  # bool
+
+        if VoucherModels.objects.filter(voucher_name=Vname).exists():
+                messages.info(request,'This Name is already taken...!')
+                return render(request, 'load_create_vouchertyp')
+        
+        mdl = VoucherModels(
+
+            voucher_name=Vname,
+            alias=alias,
+            voucher_type=vtype,
+            abbreviation=abbre,
+            active_this_voucher_type=activ_vou_typ,
+            method_voucher_numbering=meth_vou_num,
+            use_effective_date=use_effct_date,
+            use_adv_conf = useadv,
+            prvnt_duplictes =prvtdp,
+            allow_zero_value_trns=allow_zero_trans,
+            allow_naration_in_voucher=allow_naration_in_vou,
+            make_optional=optional,
+            provide_naration=provide_narr,
+            print_voucher=print,
+
+        )
+        mdl.save()
+        messages.info(request,'VOUCHER CREATED SUCCESSFULLY')
+        return redirect('load_create_vouchertyp')
+
+    return render(request, 'load_create_vouchertyp')
+
+
