@@ -36,6 +36,8 @@ urlpatterns = [
     path('update_currency/<int:pk>',views.update_currency,name='update_currency'),
     path('load_create_vouchertyp',views.load_create_vouchertyp,name='load_create_vouchertyp'),
     path('create_voucher',views.create_voucher,name="create_voucher"),
+    path('update_voucher/<int:pk>',views.update_voucher,name="update_voucher"),
+    path('save_voucher/<int:pk>',views.save_voucher,name="save_voucher"),
 
 
 

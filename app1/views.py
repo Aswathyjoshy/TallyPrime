@@ -37,7 +37,9 @@ def costcentr(request):
     return render(request, 'costcentr.html')
 
 def voucher(request):
-    return render(request, 'voucher.html')
+    vch=VoucherModels.objects.all()
+    context={'vch':vch,}
+    return render(request, 'voucher.html',context)
 
 def vouchpage(request):
     return render(request, 'vouchpage.html')
@@ -56,6 +58,10 @@ def currency(request):
 def currency_alter(request,pk):
     cur=CreateCurrency.objects.get(id=pk)
     return render(request,'currency_alter.html',{'i':cur})
+
+def update_voucher(request,pk):
+    vch=VoucherModels.objects.get(id=pk)
+    return render(request,'update_voucher.html',{'i':vch})
 
 
 def stock_grp(request):
@@ -273,5 +279,26 @@ def create_voucher(request):
         return redirect('load_create_vouchertyp')
 
     return render(request, 'load_create_vouchertyp')
+
+
+def save_voucher(request,pk):
+    if request.method=='POST':
+        vch =VoucherModels.objects.get(id=pk)
+        vch.voucher_name = request.POST.get('nam')
+        vch.alias = request.POST.get('alias')
+        vch.voucher_type = request.POST.get('vtype')
+        vch.abbreviation = request.POST.get('abbre')
+        vch.active_this_voucher_type = request.POST.get('avtyp')
+        vch.method_voucher_numbering = request.POST.get('meth_vou_num')
+        vch.use_effective_date = request.POST.get('uefftdate')
+        vch.allow_zero_value_trns = request.POST.get('allow_zero_trans')
+        vch.make_optional = request.POST.get('optional')
+        vch.allow_naration_in_voucher = request.POST.get('allow_naration_in_vou')
+        vch.provide_naration = request.POST.get('providenr')
+        vch.print_voucher = request.POST.get('print')
+        
+        vch.save()
+        return redirect('voucher')
+    return render(request, 'update_voucher.html',)
 
 

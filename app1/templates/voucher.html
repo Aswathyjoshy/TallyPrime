@@ -170,7 +170,7 @@ text-decoration: none;
   <hr></hr>
   
   
-  <a href="vouchpage"><button  class="btns_prnt" id="create"><h5>Attendance</h5></button></a>
+  <!-- <a href="vouchpage"><button  class="btns_prnt" id="create"><h5>Attendance</h5></button></a>
   <a href="vouchpage"><button  class="btns_prnt" id="create"><h5>Contra</h5></button></a>
   <a href="branch"> <button  class="btns_prnt" id="create"><h5>Credit Note</h5></button></a>
   <a href="branch"><button  class="btns_prnt" id="create"><h5>Debit Note</h5></button></a>
@@ -193,7 +193,12 @@ text-decoration: none;
   <a href="branch"><button  class="btns_prnt" id="create"><h5>Reversing Journal</h5></button></a>
   <a href="branch"><button  class="btns_prnt" id="create"><h5>Sales</h5></button></a>
   <a href="branch"><button  class="btns_prnt" id="create"><h5>Sales Order</h5></button></a>
-  <a href="branch"><button  class="btns_prnt" id="create"><h5>Stock Journal</h5></button></a>
+  <a href="branch"><button  class="btns_prnt" id="create"><h5>Stock Journal</h5></button></a> -->
+
+  {% for i in vch %}
+  <a href="{% url 'update_voucher' i.id  %}"><button  class="btns_prnt" id="create"><h5>{{ i.voucher_name }}</h5></button></a>
+  <!-- <a href="{% url 'currency_alter' i.id  %}"><button  class="btns_prnt p-3" id="create"><h6>{{ i.symbol }}</h6></button></a> -->
+  {% endfor %}
 
 
 
