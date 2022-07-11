@@ -19,10 +19,13 @@ def index(request):
     return render(request, 'home.html')
 
 def group(request):
+    # obj1=GroupModel.objects.filter(under ='BankAccount1')
+    obj=GroupModel.objects.all().filter(under ='curntasts1')
     return render(request, 'groups.html')
 
 def branch(request):
-    return render(request, 'branch.html')
+    context={ 'name':'Branch/Division' }
+    return render(request, 'branch.html',context)
 
 def ledger(request):
     return render(request, 'ledger.html')
@@ -300,5 +303,66 @@ def save_voucher(request,pk):
         vch.save()
         return redirect('voucher')
     return render(request, 'update_voucher.html',)
+
+def load_create_groups(request):
+    grp = GroupModel.objects.all()
+    context={'grp':grp}
+    return render(request,'load_create_groups.html',context)
+
+def create_group(request):
+    if request.method == 'POST':
+        gname = request.POST['gname']
+        alia = request.POST['alia']
+        under = request.POST['und']
+        gp = request.POST['subled']
+        naturee = request.POST['nature']
+        gross_profitt = request.POST['gross_profit']
+        nett = request.POST['nee'] 
+        calc = request.POST['cal']
+        meth = request.POST['meth']
+
+        grp = GroupModel.objects.all()
+        context={'grp':grp}
+
+        if GroupModel.objects.filter(name=gname).exists():
+                messages.info(request,'This Name is already taken...!')
+                return render(request,'load_create_groups.html',context)
+
+        mdl = GroupModel(
+            name=gname,
+            alias=alia,
+            under=under,
+            nature_of_group=naturee,
+            does_it_affect=gross_profitt,
+            gp_behaves_like_sub_ledger=gp,
+            nett_debit_credit_bal_reporting=nett,
+            used_for_calculation=calc,
+            method_to_allocate_usd_purchase=meth,
+        )
+        mdl.save()
+        grp = GroupModel.objects.all()
+        context={'grp':grp}
+        messages.info(request,'GROUP CREATED SUCCESSFULLY')
+        return render(request,'load_create_groups.html',context)
+
+
+def update_grp(request,pk):
+    if request.method=='POST':
+        grp =GroupModel.objects.get(id=pk)
+        grp.name = request.POST.get('gname')
+        grp.alias = request.POST.get('alia')
+        grp.under = request.POST.get('under')
+        grp.nature_of_group = request.POST.get('nature')
+        grp.does_it_affect = request.POST.get('gross_profit')
+        grp.gp_behaves_like_sub_ledger = request.POST.get('subled')
+        grp.nett_debit_credit_bal_reporting = request.POST.get('nee')
+        grp.used_for_calculation = request.POST.get('cal')
+        grp.method_to_allocate_usd_purchase = request.POST.get('meth')
+        
+        grp.save()
+        return redirect('groups')
+    return render(request, 'update_grp.html',)
+
+
 
 

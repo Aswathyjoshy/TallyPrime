@@ -33,12 +33,12 @@
     <h6 style="" class="bg-info text-light p-2">Group Creation</h6>
     
 
-<form id="myForm" action="{% url 'create_group' %}" method="post" class="p-5">
-    {% csrf_token %}
+<form class="p-5" action="/update_grp/{{ i.id }}" method="post" style="background-color:rgba(0,0,0,.4);">
+        {% csrf_token %}
    
                     <div class="row container-fluid  p-2 m-0">
                         <div class="col-sm-6 m-0 p-0"> <label for="gname">Name :</label></div>
-                        <div class="col-sm-6 m-0 p-0"><input type="text"  value="{{ name }}"id="gname"  name="gname" class="form-control" placeholder="" required></div> 
+                        <div class="col-sm-6 m-0 p-0"><input type="text" id="gname"  name="gname" class="form-control" placeholder="" required></div> 
                     </div>
 
                     <div class="row container-fluid  p-2 m-0">
@@ -49,11 +49,12 @@
                     <div class="row container-fluid  p-2 m-0">
                         <div class="col-sm-6 m-0 p-0"> <label for="under">Under :</label></div>
                         <div class="col-sm-6 m-0 p-0">
-                            <select id="under" name="und" class="form-control " >
-                                <!-- <option value="">----Select-----</option> -->
+                            % if i.under == 'Primary' %}
+                            <select id="under" name="und" class="form-control " required onchange="showunder()">
+                                <option value="">----Select-----</option>
                                 <option value="Primary" selected>Primary*</option>
 
-                                    <!-- <option value="BankAccount1">BankAccouts</option>
+                                    <option value="BankAccount1">BankAccouts</option>
                                     <option value="Bank_OCC_AC">Bank OCC A/c</option>
                                     <option value="Bankod1">Bank OD A/c</option>
                                     <option value="Bank_Account">Branch Divisions</option>
@@ -83,7 +84,9 @@
                                     <option value="Sundry_Creditors">Sundry Creditors</option>
                                     <option value="Sundry_Debtors">Sundry Debtors</option>
                                     <option value="Suspence">Suspence A/c</option>
-                                    <option value="Unsecured_loans">Unsecured Loans</option>    -->
+                                    <option value="Unsecured_loans">Unsecured Loans</option>  
+                                    
+                                    {% endif %}
         
                                 {% for i in grp %}
         
@@ -95,17 +98,32 @@
                         </div> 
                     </div>
 
-                    <div class="row container-fluid  p-2 m-0 " id="nature0" >
+                    <div class="row container-fluid  p-2 m-0 hide" id="nature0" >
                         <div class="col-sm-6 m-0 p-0"> <label for="meth"> Nature of group:</label></div>
                         <div class="col-sm-6 m-0 p-0">
+                            {% if i.nature_of_group == 'Assets' %}
+
                             <select id="nature" name="nature" class=" form-control" required onchange="shownature()">
                                 <option value="null">---Select---</option>
-                                <option value="Assets">Assets</option>
+                                <option value="Assets" selected>Assets</option>
                                 <option value="Expenses">Expenses</option>
                                 <option value="Income">Income</option>
                                 <option value="Liabilities">Liabilities</option>
 
                             </select>
+                            {% elif i.nature_of_group == 'Liabilities' %}
+
+                            <select id="nature" name="nature" class=" form-control" required onchange="shownature()">
+                                <option value="null">---Select---</option>
+                                <option value="Assets" selected>Assets</option>
+                                <option value="Expenses">Expenses</option>
+                                <option value="Income">Income</option>
+                                <option value="Liabilities" selected>Liabilities</option>
+
+                            </select>
+
+                            {% endif %}
+
                         </div> 
                     </div>
 
@@ -195,7 +213,7 @@ function showunder(){
     }
 </script>
 
-<!-- <script>
+<script>
     function shownature(){
         var status = document.getElementById("nature");
         var a = status.value;
@@ -231,7 +249,7 @@ function showunder(){
     }
    
 
-</script> -->
+</script>
 
 
 {% endblock body %}

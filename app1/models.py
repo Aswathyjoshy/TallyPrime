@@ -21,15 +21,17 @@ from django.db import models
 
 # Create your models here.
 class GroupModel(models.Model):
-    name = models.CharField(max_length=225)
-    alias = models.CharField(max_length=225,null=True)
-    under = models.CharField(max_length=225)
-    gp_behaves_like_sub_ledger = models.BooleanField(default=False)
-    nett_debit_credit_bal_reporting = models.BooleanField(default=False)
-    used_for_calculation = models.BooleanField(default=False)
-    method_to_allocate_usd_purchase = models.CharField(max_length=225,null=True,blank=True)
+    name =  models.CharField(max_length=225,default="Null",blank=True)
+    alias =  models.CharField(max_length=225,default="Null",blank=True)
+    under =models.CharField(max_length=225,default="Null",blank=True)
+    nature_of_group = models.CharField(max_length=225,default="Null",blank=True)
+    does_it_affect =models.CharField(max_length=225,default="Null",blank=True)
+    gp_behaves_like_sub_ledger =  models.CharField(max_length=225,default="Null",blank=True)
+    nett_debit_credit_bal_reporting =  models.CharField(max_length=225,default="Null",blank=True)
+    used_for_calculation =  models.CharField(max_length=225,default="Null",blank=True)
+    method_to_allocate_usd_purchase =  models.CharField(max_length=225,default="Null",blank=True)
 
-    def _str_(self):
+    def __str__(self):
         return self.name
     
 class CreateCurrency(models.Model):
