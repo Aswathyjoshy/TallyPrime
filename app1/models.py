@@ -112,139 +112,18 @@ class CurrencyAlter(models.Model):
 
 # *********************************************************************
 
+class CostCategory(models.Model):
+    name=models.CharField(max_length=225)
+    alias=models.CharField(max_length=225)
+    revenue=models.CharField(max_length=225)
+    nonrevenue=models.CharField(max_length=225)
+
+class Costcentr(models.Model):
+    name=models.CharField(max_length=225)
+    alias=models.CharField(max_length=225)
+    under=models.CharField(max_length=225)
+    emply=models.CharField(max_length=225)
 
 
-class VoucherModels(models.Model):
-    voucher_name = models.CharField(max_length=225)
-    alias = models.CharField(max_length=225)
-    voucher_type = models.CharField(max_length=225)
-    abbreviation = models.CharField(max_length=225)
-    active_this_voucher_type =  models.CharField(max_length=225)
-    method_voucher_numbering = models.CharField(max_length=225)
-    use_adv_conf = models.CharField(max_length=225,blank=True)
-    prvnt_duplictes = models.CharField(max_length=225,default="Null",blank=True)
-    use_effective_date =  models.CharField(max_length=225,default="Null")
-    allow_zero_value_trns =  models.CharField(max_length=225)
-    allow_naration_in_voucher =  models.CharField(max_length=225)
-    make_optional =  models.CharField(max_length=225)
-    provide_naration =  models.CharField(max_length=225)
-    print_voucher = models.CharField(max_length=225)
 
 
-class CurrencyAlter(models.Model):
-    cname= models.ForeignKey( CreateCurrency,on_delete=models.CASCADE,default=1)
-    slno = models.CharField(max_length=225)
-    currencys = models.CharField(max_length=225)
-    stdrate =models.CharField(max_length=225)
-    lastvrate =models.CharField(max_length=225)
-    specirate =models.CharField(max_length=225)
-    lastvrate2 =models.CharField(max_length=225)
-    specirate2 =models.CharField(max_length=225)
-
-class VoucherModels(models.Model):
-    voucher_name = models.CharField(max_length=225)
-    alias = models.CharField(max_length=225)
-    voucher_type = models.CharField(max_length=225)
-    abbreviation = models.CharField(max_length=225)
-    active_this_voucher_type =  models.CharField(max_length=225)
-    method_voucher_numbering = models.CharField(max_length=225)
-    use_adv_conf = models.CharField(max_length=225,blank=True)
-    prvnt_duplictes = models.CharField(max_length=225,default="Null",blank=True)
-    use_effective_date =  models.CharField(max_length=225,default="Null")
-    allow_zero_value_trns =  models.CharField(max_length=225)
-    allow_naration_in_voucher =  models.CharField(max_length=225)
-    make_optional =  models.CharField(max_length=225)
-    provide_naration =  models.CharField(max_length=225)
-    print_voucher = models.CharField(max_length=225)
-
-
-class CurrencyAlter(models.Model):
-    cname= models.ForeignKey( CreateCurrency,on_delete=models.CASCADE,default=1)
-    slno = models.CharField(max_length=225)
-    currencys = models.CharField(max_length=225)
-    stdrate =models.CharField(max_length=225)
-    lastvrate =models.CharField(max_length=225)
-    specirate =models.CharField(max_length=225)
-    lastvrate2 =models.CharField(max_length=225)
-    specirate2 =models.CharField(max_length=225)
-
-class VoucherModels(models.Model):
-    voucher_name = models.CharField(max_length=225)
-    alias = models.CharField(max_length=225)
-    voucher_type = models.CharField(max_length=225)
-    abbreviation = models.CharField(max_length=225)
-    active_this_voucher_type =  models.CharField(max_length=225)
-    method_voucher_numbering = models.CharField(max_length=225)
-    use_adv_conf = models.CharField(max_length=225,blank=True)
-    prvnt_duplictes = models.CharField(max_length=225,default="Null",blank=True)
-    use_effective_date =  models.CharField(max_length=225,default="Null")
-    allow_zero_value_trns =  models.CharField(max_length=225)
-    allow_naration_in_voucher =  models.CharField(max_length=225)
-    make_optional =  models.CharField(max_length=225)
-    provide_naration =  models.CharField(max_length=225)
-    print_voucher = models.CharField(max_length=225)
-
-
-class CurrencyAlter(models.Model):
-    cname= models.ForeignKey( CreateCurrency,on_delete=models.CASCADE,default=1)
-    slno = models.CharField(max_length=225)
-    currencys = models.CharField(max_length=225)
-    stdrate =models.CharField(max_length=225)
-    lastvrate =models.CharField(max_length=225)
-    specirate =models.CharField(max_length=225)
-    lastvrate2 =models.CharField(max_length=225)
-    specirate2 =models.CharField(max_length=225)
-
-class VoucherModels(models.Model):
-    voucher_name = models.CharField(max_length=225)
-    alias = models.CharField(max_length=225)
-    voucher_type = models.CharField(max_length=225)
-    abbreviation = models.CharField(max_length=225)
-    active_this_voucher_type =  models.CharField(max_length=225)
-    method_voucher_numbering = models.CharField(max_length=225)
-    use_adv_conf = models.CharField(max_length=225,blank=True)
-    prvnt_duplictes = models.CharField(max_length=225,default="Null",blank=True)
-    use_effective_date =  models.CharField(max_length=225,default="Null")
-    allow_zero_value_trns =  models.CharField(max_length=225)
-    allow_naration_in_voucher =  models.CharField(max_length=225)
-    make_optional =  models.CharField(max_length=225)
-    provide_naration =  models.CharField(max_length=225)
-    print_voucher = models.CharField(max_length=225)
-
-
-class CurrencyAlter(models.Model):
-    cname= models.ForeignKey( CreateCurrency,on_delete=models.CASCADE,default=1)
-    slno = models.CharField(max_length=225)
-    currencys = models.CharField(max_length=225)
-    stdrate =models.CharField(max_length=225)
-    lastvrate =models.CharField(max_length=225)
-    specirate =models.CharField(max_length=225)
-    lastvrate2 =models.CharField(max_length=225)
-    specirate2 =models.CharField(max_length=225)
-
-class VoucherModels(models.Model):
-    voucher_name = models.CharField(max_length=225)
-    alias = models.CharField(max_length=225)
-    voucher_type = models.CharField(max_length=225)
-    abbreviation = models.CharField(max_length=225)
-    active_this_voucher_type =  models.CharField(max_length=225)
-    method_voucher_numbering = models.CharField(max_length=225)
-    use_adv_conf = models.CharField(max_length=225,blank=True)
-    prvnt_duplictes = models.CharField(max_length=225,default="Null",blank=True)
-    use_effective_date =  models.CharField(max_length=225,default="Null")
-    allow_zero_value_trns =  models.CharField(max_length=225)
-    allow_naration_in_voucher =  models.CharField(max_length=225)
-    make_optional =  models.CharField(max_length=225)
-    provide_naration =  models.CharField(max_length=225)
-    print_voucher = models.CharField(max_length=225)
-
-
-class CurrencyAlter(models.Model):
-    cname= models.ForeignKey( CreateCurrency,on_delete=models.CASCADE,default=1)
-    slno = models.CharField(max_length=225)
-    currencys = models.CharField(max_length=225)
-    stdrate =models.CharField(max_length=225)
-    lastvrate =models.CharField(max_length=225)
-    specirate =models.CharField(max_length=225)
-    lastvrate2 =models.CharField(max_length=225)
-    specirate2 =models.CharField(max_length=225)

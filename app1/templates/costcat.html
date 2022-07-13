@@ -169,6 +169,10 @@ td
       </div>
       <!-- <hr></hr> -->
       <a href="primary"><button  class="btns_prnt p-3" id="create"><h6>Primary Cost category</h6></button></a>
+      {% for i in cost %}
+  <a href="{% url 'primary' i.id %}"><button  class="btns_prnt" id="create"><h5>{{ i.name }}</h5></button></a>
+  <!-- <a href="{% url 'currency_alter' i.id  %}"><button  class="btns_prnt p-3" id="create"><h6>{{ i.symbol }}</h6></button></a> -->
+  {% endfor %}
       
     </div>
     {% endblock %}

@@ -30,14 +30,19 @@ def branch(request):
 def ledger(request):
     return render(request, 'ledger.html')
 
-def primary(request):
-    return render(request, 'primarycost.html')
+
 
 def costcat(request):
-    return render(request, 'costcat.html')
+    cost=CostCategory.objects.all()
+    context={'cost':cost,}
+
+    return render(request, 'costcat.html',context)
 
 def costcentr(request):
-    return render(request, 'costcentr.html')
+    centr=Costcentr.objects.all()
+    context={'centr':centr,}
+
+    return render(request, 'costcentr.html',context)
 
 def voucher(request):
     vch=VoucherModels.objects.all()
@@ -57,6 +62,9 @@ def currency(request):
 # def currency_alter(request):
 
 #     return render(request, 'currency_alter.html')
+def primary(request,pk):
+    cost=CostCategory.objects.get(id=pk)
+    return render(request, 'primarycost.html',{'i':cost})
 
 def currency_alter(request,pk):
     cur=CreateCurrency.objects.get(id=pk)
@@ -365,558 +373,37 @@ def update_grp(request,pk):
 
 # **********************************************************************************
 
-
-def save_voucher(request,pk):
+def update_cost(request,pk):
     if request.method=='POST':
-        vch =VoucherModels.objects.get(id=pk)
-        vch.voucher_name = request.POST.get('nam')
-        vch.alias = request.POST.get('alias')
-        vch.voucher_type = request.POST.get('vtype')
-        vch.abbreviation = request.POST.get('abbre')
-        vch.active_this_voucher_type = request.POST.get('avtyp')
-        vch.method_voucher_numbering = request.POST.get('meth_vou_num')
-        vch.use_effective_date = request.POST.get('uefftdate')
-        vch.allow_zero_value_trns = request.POST.get('allow_zero_trans')
-        vch.make_optional = request.POST.get('optional')
-        vch.allow_naration_in_voucher = request.POST.get('allow_naration_in_vou')
-        vch.provide_naration = request.POST.get('providenr')
-        vch.print_voucher = request.POST.get('print')
+        cost =CostCategory.objects.get(id=pk)
+        cost.name = request.POST.get('a')
+        cost.alias = request.POST.get('b')
+        cost.revenue = request.POST.get('c')
+        cost.nonrevenue = request.POST.get('d')
         
-        vch.save()
-        return redirect('voucher')
-    return render(request, 'update_voucher.html',)
-
-def load_create_groups(request):
-    grp = GroupModel.objects.all()
-    context={'grp':grp}
-    return render(request,'load_create_groups.html',context)
-
-def create_group(request):
-    if request.method == 'POST':
-        gname = request.POST['gname']
-        alia = request.POST['alia']
-        under = request.POST['und']
-        gp = request.POST['subled']
-        naturee = request.POST['nature']
-        gross_profitt = request.POST['gross_profit']
-        nett = request.POST['nee'] 
-        calc = request.POST['cal']
-        meth = request.POST['meth']
-
-        grp = GroupModel.objects.all()
-        context={'grp':grp}
-
-        if GroupModel.objects.filter(name=gname).exists():
-                messages.info(request,'This Name is already taken...!')
-                return render(request,'load_create_groups.html',context)
-
-        mdl = GroupModel(
-            name=gname,
-            alias=alia,
-            under=under,
-            nature_of_group=naturee,
-            does_it_affect=gross_profitt,
-            gp_behaves_like_sub_ledger=gp,
-            nett_debit_credit_bal_reporting=nett,
-            used_for_calculation=calc,
-            method_to_allocate_usd_purchase=meth,
-        )
-        mdl.save()
-        grp = GroupModel.objects.all()
-        context={'grp':grp}
-        messages.info(request,'GROUP CREATED SUCCESSFULLY')
-        return render(request,'load_create_groups.html',context)
+        
+        cost.save()
+        return redirect('base')
+    return render(request, 'primarycost.html',)
 
 
-def update_grp(request,pk):
+def centr(request,pk):
+    centr=Costcentr.objects.get(id=pk)
+    return render(request, 'update_costcentr.html',{'i':centr})
+
+
+def update_centr(request,pk):
     if request.method=='POST':
-        grp =GroupModel.objects.get(id=pk)
-        grp.name = request.POST.get('gname')
-        grp.alias = request.POST.get('alia')
-        grp.under = request.POST.get('under')
-        grp.nature_of_group = request.POST.get('nature')
-        grp.does_it_affect = request.POST.get('gross_profit')
-        grp.gp_behaves_like_sub_ledger = request.POST.get('subled')
-        grp.nett_debit_credit_bal_reporting = request.POST.get('nee')
-        grp.used_for_calculation = request.POST.get('cal')
-        grp.method_to_allocate_usd_purchase = request.POST.get('meth')
+        centr =Costcentr.objects.get(id=pk)
+        centr.name = request.POST.get('a')
+        centr.alias = request.POST.get('b')
+        centr.under = request.POST.get('c')
+        centr.emply = request.POST.get('d')
         
-        grp.save()
-        return redirect('groups')
-    return render(request, 'update_grp.html',)
-
-def save_voucher(request,pk):
-    if request.method=='POST':
-        vch =VoucherModels.objects.get(id=pk)
-        vch.voucher_name = request.POST.get('nam')
-        vch.alias = request.POST.get('alias')
-        vch.voucher_type = request.POST.get('vtype')
-        vch.abbreviation = request.POST.get('abbre')
-        vch.active_this_voucher_type = request.POST.get('avtyp')
-        vch.method_voucher_numbering = request.POST.get('meth_vou_num')
-        vch.use_effective_date = request.POST.get('uefftdate')
-        vch.allow_zero_value_trns = request.POST.get('allow_zero_trans')
-        vch.make_optional = request.POST.get('optional')
-        vch.allow_naration_in_voucher = request.POST.get('allow_naration_in_vou')
-        vch.provide_naration = request.POST.get('providenr')
-        vch.print_voucher = request.POST.get('print')
         
-        vch.save()
-        return redirect('voucher')
-    return render(request, 'update_voucher.html',)
-
-def load_create_groups(request):
-    grp = GroupModel.objects.all()
-    context={'grp':grp}
-    return render(request,'load_create_groups.html',context)
-
-def create_group(request):
-    if request.method == 'POST':
-        gname = request.POST['gname']
-        alia = request.POST['alia']
-        under = request.POST['und']
-        gp = request.POST['subled']
-        naturee = request.POST['nature']
-        gross_profitt = request.POST['gross_profit']
-        nett = request.POST['nee'] 
-        calc = request.POST['cal']
-        meth = request.POST['meth']
-
-        grp = GroupModel.objects.all()
-        context={'grp':grp}
-
-        if GroupModel.objects.filter(name=gname).exists():
-                messages.info(request,'This Name is already taken...!')
-                return render(request,'load_create_groups.html',context)
-
-        mdl = GroupModel(
-            name=gname,
-            alias=alia,
-            under=under,
-            nature_of_group=naturee,
-            does_it_affect=gross_profitt,
-            gp_behaves_like_sub_ledger=gp,
-            nett_debit_credit_bal_reporting=nett,
-            used_for_calculation=calc,
-            method_to_allocate_usd_purchase=meth,
-        )
-        mdl.save()
-        grp = GroupModel.objects.all()
-        context={'grp':grp}
-        messages.info(request,'GROUP CREATED SUCCESSFULLY')
-        return render(request,'load_create_groups.html',context)
-
-
-def update_grp(request,pk):
-    if request.method=='POST':
-        grp =GroupModel.objects.get(id=pk)
-        grp.name = request.POST.get('gname')
-        grp.alias = request.POST.get('alia')
-        grp.under = request.POST.get('under')
-        grp.nature_of_group = request.POST.get('nature')
-        grp.does_it_affect = request.POST.get('gross_profit')
-        grp.gp_behaves_like_sub_ledger = request.POST.get('subled')
-        grp.nett_debit_credit_bal_reporting = request.POST.get('nee')
-        grp.used_for_calculation = request.POST.get('cal')
-        grp.method_to_allocate_usd_purchase = request.POST.get('meth')
-        
-        grp.save()
-        return redirect('groups')
-    return render(request, 'update_grp.html',)
-
-def save_voucher(request,pk):
-    if request.method=='POST':
-        vch =VoucherModels.objects.get(id=pk)
-        vch.voucher_name = request.POST.get('nam')
-        vch.alias = request.POST.get('alias')
-        vch.voucher_type = request.POST.get('vtype')
-        vch.abbreviation = request.POST.get('abbre')
-        vch.active_this_voucher_type = request.POST.get('avtyp')
-        vch.method_voucher_numbering = request.POST.get('meth_vou_num')
-        vch.use_effective_date = request.POST.get('uefftdate')
-        vch.allow_zero_value_trns = request.POST.get('allow_zero_trans')
-        vch.make_optional = request.POST.get('optional')
-        vch.allow_naration_in_voucher = request.POST.get('allow_naration_in_vou')
-        vch.provide_naration = request.POST.get('providenr')
-        vch.print_voucher = request.POST.get('print')
-        
-        vch.save()
-        return redirect('voucher')
-    return render(request, 'update_voucher.html',)
-
-def load_create_groups(request):
-    grp = GroupModel.objects.all()
-    context={'grp':grp}
-    return render(request,'load_create_groups.html',context)
-
-def create_group(request):
-    if request.method == 'POST':
-        gname = request.POST['gname']
-        alia = request.POST['alia']
-        under = request.POST['und']
-        gp = request.POST['subled']
-        naturee = request.POST['nature']
-        gross_profitt = request.POST['gross_profit']
-        nett = request.POST['nee'] 
-        calc = request.POST['cal']
-        meth = request.POST['meth']
-
-        grp = GroupModel.objects.all()
-        context={'grp':grp}
-
-        if GroupModel.objects.filter(name=gname).exists():
-                messages.info(request,'This Name is already taken...!')
-                return render(request,'load_create_groups.html',context)
-
-        mdl = GroupModel(
-            name=gname,
-            alias=alia,
-            under=under,
-            nature_of_group=naturee,
-            does_it_affect=gross_profitt,
-            gp_behaves_like_sub_ledger=gp,
-            nett_debit_credit_bal_reporting=nett,
-            used_for_calculation=calc,
-            method_to_allocate_usd_purchase=meth,
-        )
-        mdl.save()
-        grp = GroupModel.objects.all()
-        context={'grp':grp}
-        messages.info(request,'GROUP CREATED SUCCESSFULLY')
-        return render(request,'load_create_groups.html',context)
-
-
-def update_grp(request,pk):
-    if request.method=='POST':
-        grp =GroupModel.objects.get(id=pk)
-        grp.name = request.POST.get('gname')
-        grp.alias = request.POST.get('alia')
-        grp.under = request.POST.get('under')
-        grp.nature_of_group = request.POST.get('nature')
-        grp.does_it_affect = request.POST.get('gross_profit')
-        grp.gp_behaves_like_sub_ledger = request.POST.get('subled')
-        grp.nett_debit_credit_bal_reporting = request.POST.get('nee')
-        grp.used_for_calculation = request.POST.get('cal')
-        grp.method_to_allocate_usd_purchase = request.POST.get('meth')
-        
-        grp.save()
-        return redirect('groups')
-    return render(request, 'update_grp.html',)
-
-def save_voucher(request,pk):
-    if request.method=='POST':
-        vch =VoucherModels.objects.get(id=pk)
-        vch.voucher_name = request.POST.get('nam')
-        vch.alias = request.POST.get('alias')
-        vch.voucher_type = request.POST.get('vtype')
-        vch.abbreviation = request.POST.get('abbre')
-        vch.active_this_voucher_type = request.POST.get('avtyp')
-        vch.method_voucher_numbering = request.POST.get('meth_vou_num')
-        vch.use_effective_date = request.POST.get('uefftdate')
-        vch.allow_zero_value_trns = request.POST.get('allow_zero_trans')
-        vch.make_optional = request.POST.get('optional')
-        vch.allow_naration_in_voucher = request.POST.get('allow_naration_in_vou')
-        vch.provide_naration = request.POST.get('providenr')
-        vch.print_voucher = request.POST.get('print')
-        
-        vch.save()
-        return redirect('voucher')
-    return render(request, 'update_voucher.html',)
-
-def load_create_groups(request):
-    grp = GroupModel.objects.all()
-    context={'grp':grp}
-    return render(request,'load_create_groups.html',context)
-
-def create_group(request):
-    if request.method == 'POST':
-        gname = request.POST['gname']
-        alia = request.POST['alia']
-        under = request.POST['und']
-        gp = request.POST['subled']
-        naturee = request.POST['nature']
-        gross_profitt = request.POST['gross_profit']
-        nett = request.POST['nee'] 
-        calc = request.POST['cal']
-        meth = request.POST['meth']
-
-        grp = GroupModel.objects.all()
-        context={'grp':grp}
-
-        if GroupModel.objects.filter(name=gname).exists():
-                messages.info(request,'This Name is already taken...!')
-                return render(request,'load_create_groups.html',context)
-
-        mdl = GroupModel(
-            name=gname,
-            alias=alia,
-            under=under,
-            nature_of_group=naturee,
-            does_it_affect=gross_profitt,
-            gp_behaves_like_sub_ledger=gp,
-            nett_debit_credit_bal_reporting=nett,
-            used_for_calculation=calc,
-            method_to_allocate_usd_purchase=meth,
-        )
-        mdl.save()
-        grp = GroupModel.objects.all()
-        context={'grp':grp}
-        messages.info(request,'GROUP CREATED SUCCESSFULLY')
-        return render(request,'load_create_groups.html',context)
-
-
-def update_grp(request,pk):
-    if request.method=='POST':
-        grp =GroupModel.objects.get(id=pk)
-        grp.name = request.POST.get('gname')
-        grp.alias = request.POST.get('alia')
-        grp.under = request.POST.get('under')
-        grp.nature_of_group = request.POST.get('nature')
-        grp.does_it_affect = request.POST.get('gross_profit')
-        grp.gp_behaves_like_sub_ledger = request.POST.get('subled')
-        grp.nett_debit_credit_bal_reporting = request.POST.get('nee')
-        grp.used_for_calculation = request.POST.get('cal')
-        grp.method_to_allocate_usd_purchase = request.POST.get('meth')
-        
-        grp.save()
-        return redirect('groups')
-    return render(request, 'update_grp.html',)
-
-def save_voucher(request,pk):
-    if request.method=='POST':
-        vch =VoucherModels.objects.get(id=pk)
-        vch.voucher_name = request.POST.get('nam')
-        vch.alias = request.POST.get('alias')
-        vch.voucher_type = request.POST.get('vtype')
-        vch.abbreviation = request.POST.get('abbre')
-        vch.active_this_voucher_type = request.POST.get('avtyp')
-        vch.method_voucher_numbering = request.POST.get('meth_vou_num')
-        vch.use_effective_date = request.POST.get('uefftdate')
-        vch.allow_zero_value_trns = request.POST.get('allow_zero_trans')
-        vch.make_optional = request.POST.get('optional')
-        vch.allow_naration_in_voucher = request.POST.get('allow_naration_in_vou')
-        vch.provide_naration = request.POST.get('providenr')
-        vch.print_voucher = request.POST.get('print')
-        
-        vch.save()
-        return redirect('voucher')
-    return render(request, 'update_voucher.html',)
-
-def load_create_groups(request):
-    grp = GroupModel.objects.all()
-    context={'grp':grp}
-    return render(request,'load_create_groups.html',context)
-
-def create_group(request):
-    if request.method == 'POST':
-        gname = request.POST['gname']
-        alia = request.POST['alia']
-        under = request.POST['und']
-        gp = request.POST['subled']
-        naturee = request.POST['nature']
-        gross_profitt = request.POST['gross_profit']
-        nett = request.POST['nee'] 
-        calc = request.POST['cal']
-        meth = request.POST['meth']
-
-        grp = GroupModel.objects.all()
-        context={'grp':grp}
-
-        if GroupModel.objects.filter(name=gname).exists():
-                messages.info(request,'This Name is already taken...!')
-                return render(request,'load_create_groups.html',context)
-
-        mdl = GroupModel(
-            name=gname,
-            alias=alia,
-            under=under,
-            nature_of_group=naturee,
-            does_it_affect=gross_profitt,
-            gp_behaves_like_sub_ledger=gp,
-            nett_debit_credit_bal_reporting=nett,
-            used_for_calculation=calc,
-            method_to_allocate_usd_purchase=meth,
-        )
-        mdl.save()
-        grp = GroupModel.objects.all()
-        context={'grp':grp}
-        messages.info(request,'GROUP CREATED SUCCESSFULLY')
-        return render(request,'load_create_groups.html',context)
-
-
-def update_grp(request,pk):
-    if request.method=='POST':
-        grp =GroupModel.objects.get(id=pk)
-        grp.name = request.POST.get('gname')
-        grp.alias = request.POST.get('alia')
-        grp.under = request.POST.get('under')
-        grp.nature_of_group = request.POST.get('nature')
-        grp.does_it_affect = request.POST.get('gross_profit')
-        grp.gp_behaves_like_sub_ledger = request.POST.get('subled')
-        grp.nett_debit_credit_bal_reporting = request.POST.get('nee')
-        grp.used_for_calculation = request.POST.get('cal')
-        grp.method_to_allocate_usd_purchase = request.POST.get('meth')
-        
-        grp.save()
-        return redirect('groups')
-    return render(request, 'update_grp.html',)
-def save_voucher(request,pk):
-    if request.method=='POST':
-        vch =VoucherModels.objects.get(id=pk)
-        vch.voucher_name = request.POST.get('nam')
-        vch.alias = request.POST.get('alias')
-        vch.voucher_type = request.POST.get('vtype')
-        vch.abbreviation = request.POST.get('abbre')
-        vch.active_this_voucher_type = request.POST.get('avtyp')
-        vch.method_voucher_numbering = request.POST.get('meth_vou_num')
-        vch.use_effective_date = request.POST.get('uefftdate')
-        vch.allow_zero_value_trns = request.POST.get('allow_zero_trans')
-        vch.make_optional = request.POST.get('optional')
-        vch.allow_naration_in_voucher = request.POST.get('allow_naration_in_vou')
-        vch.provide_naration = request.POST.get('providenr')
-        vch.print_voucher = request.POST.get('print')
-        
-        vch.save()
-        return redirect('voucher')
-    return render(request, 'update_voucher.html',)
-
-def load_create_groups(request):
-    grp = GroupModel.objects.all()
-    context={'grp':grp}
-    return render(request,'load_create_groups.html',context)
-
-def create_group(request):
-    if request.method == 'POST':
-        gname = request.POST['gname']
-        alia = request.POST['alia']
-        under = request.POST['und']
-        gp = request.POST['subled']
-        naturee = request.POST['nature']
-        gross_profitt = request.POST['gross_profit']
-        nett = request.POST['nee'] 
-        calc = request.POST['cal']
-        meth = request.POST['meth']
-
-        grp = GroupModel.objects.all()
-        context={'grp':grp}
-
-        if GroupModel.objects.filter(name=gname).exists():
-                messages.info(request,'This Name is already taken...!')
-                return render(request,'load_create_groups.html',context)
-
-        mdl = GroupModel(
-            name=gname,
-            alias=alia,
-            under=under,
-            nature_of_group=naturee,
-            does_it_affect=gross_profitt,
-            gp_behaves_like_sub_ledger=gp,
-            nett_debit_credit_bal_reporting=nett,
-            used_for_calculation=calc,
-            method_to_allocate_usd_purchase=meth,
-        )
-        mdl.save()
-        grp = GroupModel.objects.all()
-        context={'grp':grp}
-        messages.info(request,'GROUP CREATED SUCCESSFULLY')
-        return render(request,'load_create_groups.html',context)
-
-
-def update_grp(request,pk):
-    if request.method=='POST':
-        grp =GroupModel.objects.get(id=pk)
-        grp.name = request.POST.get('gname')
-        grp.alias = request.POST.get('alia')
-        grp.under = request.POST.get('under')
-        grp.nature_of_group = request.POST.get('nature')
-        grp.does_it_affect = request.POST.get('gross_profit')
-        grp.gp_behaves_like_sub_ledger = request.POST.get('subled')
-        grp.nett_debit_credit_bal_reporting = request.POST.get('nee')
-        grp.used_for_calculation = request.POST.get('cal')
-        grp.method_to_allocate_usd_purchase = request.POST.get('meth')
-        
-        grp.save()
-        return redirect('groups')
-    return render(request, 'update_grp.html',)
-def save_voucher(request,pk):
-    if request.method=='POST':
-        vch =VoucherModels.objects.get(id=pk)
-        vch.voucher_name = request.POST.get('nam')
-        vch.alias = request.POST.get('alias')
-        vch.voucher_type = request.POST.get('vtype')
-        vch.abbreviation = request.POST.get('abbre')
-        vch.active_this_voucher_type = request.POST.get('avtyp')
-        vch.method_voucher_numbering = request.POST.get('meth_vou_num')
-        vch.use_effective_date = request.POST.get('uefftdate')
-        vch.allow_zero_value_trns = request.POST.get('allow_zero_trans')
-        vch.make_optional = request.POST.get('optional')
-        vch.allow_naration_in_voucher = request.POST.get('allow_naration_in_vou')
-        vch.provide_naration = request.POST.get('providenr')
-        vch.print_voucher = request.POST.get('print')
-        
-        vch.save()
-        return redirect('voucher')
-    return render(request, 'update_voucher.html',)
-
-def load_create_groups(request):
-    grp = GroupModel.objects.all()
-    context={'grp':grp}
-    return render(request,'load_create_groups.html',context)
-
-def create_group(request):
-    if request.method == 'POST':
-        gname = request.POST['gname']
-        alia = request.POST['alia']
-        under = request.POST['und']
-        gp = request.POST['subled']
-        naturee = request.POST['nature']
-        gross_profitt = request.POST['gross_profit']
-        nett = request.POST['nee'] 
-        calc = request.POST['cal']
-        meth = request.POST['meth']
-
-        grp = GroupModel.objects.all()
-        context={'grp':grp}
-
-        if GroupModel.objects.filter(name=gname).exists():
-                messages.info(request,'This Name is already taken...!')
-                return render(request,'load_create_groups.html',context)
-
-        mdl = GroupModel(
-            name=gname,
-            alias=alia,
-            under=under,
-            nature_of_group=naturee,
-            does_it_affect=gross_profitt,
-            gp_behaves_like_sub_ledger=gp,
-            nett_debit_credit_bal_reporting=nett,
-            used_for_calculation=calc,
-            method_to_allocate_usd_purchase=meth,
-        )
-        mdl.save()
-        grp = GroupModel.objects.all()
-        context={'grp':grp}
-        messages.info(request,'GROUP CREATED SUCCESSFULLY')
-        return render(request,'load_create_groups.html',context)
-
-
-def update_grp(request,pk):
-    if request.method=='POST':
-        grp =GroupModel.objects.get(id=pk)
-        grp.name = request.POST.get('gname')
-        grp.alias = request.POST.get('alia')
-        grp.under = request.POST.get('under')
-        grp.nature_of_group = request.POST.get('nature')
-        grp.does_it_affect = request.POST.get('gross_profit')
-        grp.gp_behaves_like_sub_ledger = request.POST.get('subled')
-        grp.nett_debit_credit_bal_reporting = request.POST.get('nee')
-        grp.used_for_calculation = request.POST.get('cal')
-        grp.method_to_allocate_usd_purchase = request.POST.get('meth')
-        
-        grp.save()
-        return redirect('groups')
-    return render(request, 'update_grp.html',)
-
+        centr.save()
+        return redirect('base')
+    return render(request, 'update_costcentr.html',)
 
 
 

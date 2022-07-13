@@ -9,7 +9,7 @@ urlpatterns = [
     path('group',views.group,name='group'),
     path('branch',views.branch,name='branch'),
     path('ledger',views.ledger,name='ledger'),
-    path('primary',views.primary,name='primary'),
+    path('primary/<int:pk>',views.primary,name='primary'),
     path('costcat',views.costcat,name='costcat'),
     path('costcentr',views.costcentr,name='costcentr'),
     path('voucher',views.voucher,name='voucher'),
@@ -41,6 +41,10 @@ urlpatterns = [
     path('load_create_groups',views.load_create_groups,name="load_create_groups"),
     path('create_group',views.create_group,name="create_group"),
     path('update_grp/<int:pk>',views.update_grp,name="update_grp"),
+    path('update_cost/<int:pk>',views.update_cost,name="update_cost"),
+    path('update_centr/<int:pk>',views.update_centr,name='update_centr'),
+    path('centr/<int:pk>',views.centr,name='centr'),
+
 
 
 
