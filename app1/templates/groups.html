@@ -328,11 +328,7 @@ td
       <a href="branch"><button  class="btns_prnt" id="create"><h5>Capital Account</h5></button></a>
       <a href="branch"> <button  class="btns_prnt" id="create"><h5>Current Assets</h5></button></a>
 
-      {% for i in obj %}
-      <a href="#"><button  class="btns_prnt" id="create"><h5>{{ i.name }}</h5></button></a>
-  <!-- <a href="{% url 'currency_alter' i.id  %}"><button  class="btns_prnt p-3" id="create"><h6>{{ i.symbol }}</h6></button></a> -->
-      {% endfor %}
-
+      
       <a href="branch"><button  class="btns_prnt" id="create"><h5>Current Liabilities</h5></button></a>
       <a href="branch"><button  class="btns_prnt" id="create"><h5>Direct Expenses</h5></button></a>
       <a href="branch"><button  class="btns_prnt" id="create"><h5>Direct Incomes</h5></button></a>
@@ -345,6 +341,12 @@ td
       <a href="branch"><button  class="btns_prnt" id="create"><h5>Purchase Accounts</h5></button></a>
       <a href="branch"><button  class="btns_prnt" id="create"><h5>Sales Accounts</h5></button></a>
       <a href="branch"><button  class="btns_prnt" id="create"><h5>Suspense A/C</h5></button></a>
+
+      {% for i in grp %}
+      <a href="{% url 'grp' i.id  %}"><button  class="btns_prnt" id="create"><h5>{{ i.name }}</h5></button></a>
+  <!-- <a href="{% url 'currency_alter' i.id  %}"><button  class="btns_prnt p-3" id="create"><h6>{{ i.symbol }}</h6></button></a> -->
+      {% endfor %}
+
 
       
 

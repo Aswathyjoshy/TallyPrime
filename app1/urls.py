@@ -38,12 +38,15 @@ urlpatterns = [
     path('create_voucher',views.create_voucher,name="create_voucher"),
     path('update_voucher/<int:pk>',views.update_voucher,name="update_voucher"),
     path('save_voucher/<int:pk>',views.save_voucher,name="save_voucher"),
-    path('load_create_groups',views.load_create_groups,name="load_create_groups"),
-    path('create_group',views.create_group,name="create_group"),
-    path('update_grp/<int:pk>',views.update_grp,name="update_grp"),
+    # path('load_create_groups',views.load_create_groups,name="load_create_groups"),
+    # path('create_group',views.create_group,name="create_group"),
+    # path('update_grp/<int:pk>',views.update_grp,name="update_grp"),
     path('update_cost/<int:pk>',views.update_cost,name="update_cost"),
     path('update_centr/<int:pk>',views.update_centr,name='update_centr'),
     path('centr/<int:pk>',views.centr,name='centr'),
+    path('grp_alter/<int:pk>',views.grp_alter,name="grp_alter"),
+    path('grp/<int:pk>',views.grp,name='grp'),
+    
 
 
 

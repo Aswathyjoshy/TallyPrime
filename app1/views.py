@@ -18,10 +18,10 @@ def base(request):
 def index(request):
     return render(request, 'home.html')
 
-def group(request):
-    # obj1=GroupModel.objects.filter(under ='BankAccount1')
-    obj=GroupModel.objects.all().filter(under ='curntasts1')
-    return render(request, 'groups.html')
+# def group(request):
+#     # obj1=GroupModel.objects.filter(under ='BankAccount1')
+#     obj=GroupModel.objects.all().filter(under ='curntasts1')
+#     return render(request, 'groups.html')
 
 def branch(request):
     context={ 'name':'Branch/Division' }
@@ -312,64 +312,64 @@ def save_voucher(request,pk):
         return redirect('voucher')
     return render(request, 'update_voucher.html',)
 
-def load_create_groups(request):
-    grp = GroupModel.objects.all()
-    context={'grp':grp}
-    return render(request,'load_create_groups.html',context)
+# def load_create_groups(request):
+#     grp = GroupModel.objects.all()
+#     context={'grp':grp}
+#     return render(request,'load_create_groups.html',context)
 
-def create_group(request):
-    if request.method == 'POST':
-        gname = request.POST['gname']
-        alia = request.POST['alia']
-        under = request.POST['und']
-        gp = request.POST['subled']
-        naturee = request.POST['nature']
-        gross_profitt = request.POST['gross_profit']
-        nett = request.POST['nee'] 
-        calc = request.POST['cal']
-        meth = request.POST['meth']
+# def create_group(request):
+#     if request.method == 'POST':
+#         gname = request.POST['gname']
+#         alia = request.POST['alia']
+#         under = request.POST['und']
+#         gp = request.POST['subled']
+#         naturee = request.POST['nature']
+#         gross_profitt = request.POST['gross_profit']
+#         nett = request.POST['nee'] 
+#         calc = request.POST['cal']
+#         meth = request.POST['meth']
 
-        grp = GroupModel.objects.all()
-        context={'grp':grp}
+#         grp = GroupModel.objects.all()
+#         context={'grp':grp}
 
-        if GroupModel.objects.filter(name=gname).exists():
-                messages.info(request,'This Name is already taken...!')
-                return render(request,'load_create_groups.html',context)
+#         if GroupModel.objects.filter(name=gname).exists():
+#                 messages.info(request,'This Name is already taken...!')
+#                 return render(request,'load_create_groups.html',context)
 
-        mdl = GroupModel(
-            name=gname,
-            alias=alia,
-            under=under,
-            nature_of_group=naturee,
-            does_it_affect=gross_profitt,
-            gp_behaves_like_sub_ledger=gp,
-            nett_debit_credit_bal_reporting=nett,
-            used_for_calculation=calc,
-            method_to_allocate_usd_purchase=meth,
-        )
-        mdl.save()
-        grp = GroupModel.objects.all()
-        context={'grp':grp}
-        messages.info(request,'GROUP CREATED SUCCESSFULLY')
-        return render(request,'load_create_groups.html',context)
+#         mdl = GroupModel(
+#             name=gname,
+#             alias=alia,
+#             under=under,
+#             nature_of_group=naturee,
+#             does_it_affect=gross_profitt,
+#             gp_behaves_like_sub_ledger=gp,
+#             nett_debit_credit_bal_reporting=nett,
+#             used_for_calculation=calc,
+#             method_to_allocate_usd_purchase=meth,
+#         )
+#         mdl.save()
+#         grp = GroupModel.objects.all()
+#         context={'grp':grp}
+#         messages.info(request,'GROUP CREATED SUCCESSFULLY')
+#         return render(request,'load_create_groups.html',context)
 
 
-def update_grp(request,pk):
-    if request.method=='POST':
-        grp =GroupModel.objects.get(id=pk)
-        grp.name = request.POST.get('gname')
-        grp.alias = request.POST.get('alia')
-        grp.under = request.POST.get('under')
-        grp.nature_of_group = request.POST.get('nature')
-        grp.does_it_affect = request.POST.get('gross_profit')
-        grp.gp_behaves_like_sub_ledger = request.POST.get('subled')
-        grp.nett_debit_credit_bal_reporting = request.POST.get('nee')
-        grp.used_for_calculation = request.POST.get('cal')
-        grp.method_to_allocate_usd_purchase = request.POST.get('meth')
+# def update_grp(request,pk):
+#     if request.method=='POST':
+#         grp =GroupModel.objects.get(id=pk)
+#         grp.name = request.POST.get('gname')
+#         grp.alias = request.POST.get('alia')
+#         grp.under = request.POST.get('under')
+#         grp.nature_of_group = request.POST.get('nature')
+#         grp.does_it_affect = request.POST.get('gross_profit')
+#         grp.gp_behaves_like_sub_ledger = request.POST.get('subled')
+#         grp.nett_debit_credit_bal_reporting = request.POST.get('nee')
+#         grp.used_for_calculation = request.POST.get('cal')
+#         grp.method_to_allocate_usd_purchase = request.POST.get('meth')
         
-        grp.save()
-        return redirect('groups')
-    return render(request, 'update_grp.html',)
+#         grp.save()
+#         return redirect('groups')
+#     return render(request, 'update_grp.html',)
 
 # **********************************************************************************
 
@@ -383,7 +383,7 @@ def update_cost(request,pk):
         
         
         cost.save()
-        return redirect('base')
+        return redirect('costcat')
     return render(request, 'primarycost.html',)
 
 
@@ -395,15 +395,43 @@ def centr(request,pk):
 def update_centr(request,pk):
     if request.method=='POST':
         centr =Costcentr.objects.get(id=pk)
-        centr.name = request.POST.get('a')
-        centr.alias = request.POST.get('b')
-        centr.under = request.POST.get('c')
-        centr.emply = request.POST.get('d')
+        centr.name = request.POST.get('name')
+        centr.alias = request.POST.get('alias')
+        centr.under = request.POST.get('under')
+        centr.emply = request.POST.get('emply')
         
         
         centr.save()
-        return redirect('base')
+        return redirect('costcentr')
     return render(request, 'update_costcentr.html',)
+
+
+def grp_alter(request,pk):
+    if request.method=='POST':
+        grp =GrpAlter.objects.get(id=pk)
+        grp.name = request.POST.get('name')
+        grp.alias = request.POST.get('alias')
+        grp.under = request.POST.get('under')
+        grp.nature = request.POST.get('nature')
+        grp.grp = request.POST.get('grp')
+        grp.nett = request.POST.get('nett')
+        grp.used = request.POST.get('used')
+        grp.method = request.POST.get('method')
+        
+        
+        grp.save()
+        return redirect('group')
+    return render(request, 'grp_alter.html',)
+
+
+def grp(request,pk):
+    grp=GrpAlter.objects.get(id=pk)
+    return render(request, 'grp_alter.html',{'i':grp})
+
+def group(request):
+    grp=GrpAlter.objects.all()
+    context={'grp':grp,}
+    return render(request, 'groups.html',context)
 
 
 

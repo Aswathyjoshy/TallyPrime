@@ -124,6 +124,18 @@ class Costcentr(models.Model):
     under=models.CharField(max_length=225)
     emply=models.CharField(max_length=225)
 
+class GrpAlter(models.Model):
+    name=models.CharField(max_length=225)
+    alias=models.CharField(max_length=225)
+    under=models.CharField(max_length=225)
+    nature=models.CharField(max_length=225)
+    grp=models.CharField(max_length=225)
+    nett=models.CharField(max_length=225)
+    used=models.CharField(max_length=225)
+    method=models.CharField(max_length=225)
+    
+
+
 
 
 
