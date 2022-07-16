@@ -48,7 +48,8 @@
                     border: 2px solid rgb(0, 0, 0,0);
                 }
                 input:focus-within,select:focus{
-                 border: 2px solid rgb(103, 175, 220,0.5);
+                 border: 2px solid white;
+                 /* rgb(103, 175, 220,0.5); */
                 }
         
         
@@ -89,7 +90,7 @@
             <div class="container">
             <div class="form1">
                 <a href="javascript:history.go(-1);" class="close">+</a>
-                <h6 style="background-color:rgb(103, 175, 220) ; color:white; text-align: center; padding: 9px 0; width:100%;">Cost Category Alteration(Seconadary)</h6>
+                <h6 style="background-color:rgb(103, 175, 220) ; color:white; text-align: center; padding: 9px 0; width:100%;">Group Alteration(Seconadary)</h6>
                 <!-- <form action="" method="post"> -->
                 <form action="/grp_alter/{{ i.id }}" method="post">
                         {% csrf_token %}
@@ -142,8 +143,8 @@
                         <div><p>Method to allocate when used in purchase invoice</p></div>
                         <select name="method" id="method">
                             <option value="{{ i.method }}">{{ i.method }}</option>
-                            <option value="No">No</option> 
-                            <option value="Yes">Yes</option>
+                            <option value="Qty">Appropriate by Qty</option> 
+                            <option value="value">Value</option>
                           
                         </select>
                     

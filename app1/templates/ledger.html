@@ -4,10 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gateway tally</title> -->
-    {% extends 'base.html' %}
-    {% block body %}
-        {% load static %}
+    <title>Gateway tally</title>
     <style>
         *{
             padding: 0;
@@ -155,7 +152,158 @@ td
 }
     </style>
 </head>
-<body>
+<body>  -->
+    {% extends 'base.html' %}
+    {% block body %}
+        {% load static %}
+        <style>
+            *{
+            padding: 0;
+            margin: 0;
+            font-family: Arial, Helvetica, sans-serif;
+            box-sizing:border-box;
+        }
+       
+        table,th,td
+{
+    border-collapse: collapse;
+    text-align: center;
+}
+table
+{
+    width: 100%;
+   
+}
+
+
+th
+{
+   
+    border-top: 1.5px solid rgb(121, 186, 255);
+    font-size: 12px;
+    padding: 6px;
+    color: rgb(0, 104, 214);
+    border-bottom: 1.5px solid rgb(121, 186, 255);
+    
+}
+
+td
+{
+    padding: 8px;
+    font-size: 13px;
+ 
+}
+.lists{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.titles{
+    width: 100%;
+    text-align: center;
+  
+    padding: 10px 5px 5px;
+    color: rgb(59, 159, 252);
+    font-size: 13px;
+
+}
+
+.btns{
+    color: black;
+    text-decoration: none;
+    
+  
+
+}
+.btns_prnt{
+    width: 100%;
+    text-align: start;
+    background-color: rgba(240, 248, 255, 0);
+    border: none;
+    /* padding: 6px; */
+
+}
+.btns_prnt:hover{
+    background-color:orange;
+    color: rgb(15, 14, 14);
+}
+
+.btns_prnt2{
+    width: 100%;
+    text-align: start;
+    background-color: rgba(240, 248, 255, 0);
+    border: none;
+    padding: 3px;
+    text-decoration: none;
+
+}
+.btns_prnt2:hover{
+    background-color:orange;
+    color: white;
+}
+.btns_2{
+    width: 100%;
+    text-align: end;
+    background-color: rgba(240, 248, 255, 0);
+    border: none;
+    padding: 6px;
+    
+
+}
+.btns_2:hover{
+    background-color:rgb(181, 213, 240);
+    color: rgb(0, 9, 105);
+}
+
+
+.bg-model {
+	background-color: rgba(0, 0, 0, 0.3);
+    backdrop-filter: blur(6px);
+
+	width: 100%;
+	height: 100%;
+	position: absolute;
+	top: 0;
+
+	display:none;
+	justify-content: center;
+	align-items: center;
+}
+.titles2{
+    width: 100%;
+    text-align: start;
+  
+    padding: 10px 5px 5px;
+    color: black;
+    font-size: 13px;
+
+}
+.close {
+	position: absolute;
+	top: 0;
+	right: 10px;
+	font-size: 30px;
+	color: rgb(255, 255, 255);
+	transform: rotate(45deg);
+	cursor: pointer;
+	
+}
+.close:hover {
+		color: rgb(255, 128, 0);
+	}
+    .moreText {
+  display: none;
+}
+.text.show-more .moreText {
+  display:inline;
+  text-decoration: none;
+}
+.nodec{
+    text-decoration: none;
+}
+    </style>
+
+        
     <div style="height: 100vh;">
         <h6 style="color: rgb(0, 0, 65); background-color: rgb(142, 211, 250);padding: 2px; height:3%;">Chart Of Accounts</h6>
     <div style=" display:flex; height: 97%;">
@@ -175,11 +323,12 @@ td
       </div>
       </div>
       <hr></hr>
-      <p>Assets</p>
       
-      <a href="branch"><button  class="btns_prnt" id="create"><h5>Branchs / Divisions</h5></button></a>
+      <!-- <a href="branch"><button  class="btns_prnt" id="create"><h5>Branchs / Divisions</h5></button></a>
       <a href="branch"><button  class="btns_prnt" id="create"><h5>Capital Account</h5></button></a>
       <a href="branch"> <button  class="btns_prnt" id="create"><h5>Current Assets</h5></button></a>
+
+      
       <a href="branch"><button  class="btns_prnt" id="create"><h5>Current Liabilities</h5></button></a>
       <a href="branch"><button  class="btns_prnt" id="create"><h5>Direct Expenses</h5></button></a>
       <a href="branch"><button  class="btns_prnt" id="create"><h5>Direct Incomes</h5></button></a>
@@ -191,9 +340,17 @@ td
       <a href="branch"><button  class="btns_prnt" id="create"><h5>Misc. Expenses(ASSET)</h5></button></a>
       <a href="branch"><button  class="btns_prnt" id="create"><h5>Purchase Accounts</h5></button></a>
       <a href="branch"><button  class="btns_prnt" id="create"><h5>Sales Accounts</h5></button></a>
-      <a href="branch"><button  class="btns_prnt" id="create"><h5>Suspense A/C</h5></button></a>
-      <a href="profit"><button  class="btns_prnt" id="create"><h5>Profit & Loss A/C</h5></button></a>
+      <a href="branch"><button  class="btns_prnt" id="create"><h5>Suspense A/C</h5></button></a> -->
 
+      <p style="font-size: 25px; text-decoration: underline;" >Assets</p>
+
+      {% for i in grp %}
+      <a href="{% url 'grp' i.id  %}"><button  class="btns_prnt" id="create"><h5>{{ i.name }}</h5></button></a>
+  <!-- <a href="{% url 'currency_alter' i.id  %}"><button  class="btns_prnt p-3" id="create"><h6>{{ i.symbol }}</h6></button></a> -->
+      {% endfor %}
+
+
+      
 
 
 
@@ -213,7 +370,7 @@ td
         </tr>
 
     </tbody>
-</table>
+</table
 
     </div>
     

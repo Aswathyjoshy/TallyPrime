@@ -27,8 +27,8 @@ def branch(request):
     context={ 'name':'Branch/Division' }
     return render(request, 'branch.html',context)
 
-def ledger(request):
-    return render(request, 'ledger.html')
+# def ledger(request):
+#     return render(request, 'ledger.html')
 
 
 
@@ -432,6 +432,13 @@ def group(request):
     grp=GrpAlter.objects.all()
     context={'grp':grp,}
     return render(request, 'groups.html',context)
+
+def ledger(request):
+    grp=GrpAlter.objects.all()
+    context={'grp':grp,}
+    return render(request, 'ledger.html',context)
+
+
 
 
 
