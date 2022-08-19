@@ -46,6 +46,8 @@ urlpatterns = [
     path('centr/<int:pk>',views.centr,name='centr'),
     path('grp_alter/<int:pk>',views.grp_alter,name="grp_alter"),
     path('grp/<int:pk>',views.grp,name='grp'),
+    path('load_ledger',views.load_ledger,name='load_ledger'),
+    path('save_ledger',views.save_ledger,name='save_ledger'),
     
 
 

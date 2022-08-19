@@ -589,6 +589,9 @@ def save_ledger(request):
         messages.info(request,'LEDGER CREATED SUCCESSFULLY')
         return redirect('load_create_ledger.html')
 
+def load_ledger(request):
+    return render(request,'load_ledger.html')
+
 
 
 
